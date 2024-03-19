@@ -1,43 +1,37 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
+// Enum to define the type of tag list
 public enum TagListType
 {
-    Blacklist,
-    Whitelist
+    Blacklist,  // List of tags to be excluded
+    Whitelist   // List of tags to be included
 }
 
 public class DestroyedOnCollision : MonoBehaviour
 {
-
+    // Variable to store the type of tag list
     [SerializeField]
     private TagListType tagListType = TagListType.Blacklist;
 
-    // A list of tags which we use to determine whether to explode or not
-    // Depending on the tagListType (Blacklist or Whitelist)
+    // A list of tags which we use to determine whether to destroy the game object or not
+    // The action depends on the tagListType (Blacklist or Whitelist)
     [SerializeField]
     private List<string> tags;
 
+    // Function that is called when the Collider2D other enters the trigger
     void OnTriggerEnter2D(Collider2D other)
     {
+        // Check if the tag of the game object that collided is in the list
         bool tagInList = tags.Contains(other.gameObject.tag);
 
-        if (tagListType == TagListType.Blacklist 
-            && tagInList)
+        // If the tag list type is Blacklist and the tag is in the list, destroy the game object
+        // If the tag list type is Whitelist and the tag is not in the list, destroy the game object
+        if ((tagListType == TagListType.Blacklist && tagInList) || 
+            (tagListType == TagListType.Whitelist && !tagInList))
         {
-            // Destroy if it's a Blacklist and the tag IS in the Blacklist
+            // Destroy the game object
             Destroy(gameObject);
-        }
-        else if (tagListType == TagListType.Whitelist 
-            && !tagInList)
-        {
-            // Destroy if it's a Whitelist and the tag is NOT in the Whitelist
-            Destroy(gameObject);
-        }
-        else
-        {
-            // Use default collision code
         }
     }
 }
