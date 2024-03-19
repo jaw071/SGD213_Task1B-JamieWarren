@@ -1,26 +1,31 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class PlayerMovementScript : MonoBehaviour {
-            // SerializeField exposes this value to the Editor, but not to other Scripts!
-            // It is "pseudo public"
-            // HorizontalPlayerAcceleration indicates how fast we accelerate Horizontally
-            [SerializeField]
-            private float f_horPlayAccel = 5000f;
+public class PlayerMovementScript : MonoBehaviour
+{
+    // Exposes this value to the Editor, but not to other Scripts (pseudo public)
+    [SerializeField] private float horizontalPlayerAcceleration = 5000f;
+    private Rigidbody2D ourRigidbody;
 
-            private Rigidbody2D OURRigidbody;
+    void Start()
+    {
+        // Get the Rigidbody2D component once at the start of the game and store a reference to it
+        // This avoids calling GetComponent multiple times (which is slow)
+        ourRigidbody = GetComponent<Rigidbody2D>();
+    }
 
-    // Use this for initialization
-    void Start() {
-        // Get OurRigidbodyComponent once at the start of the game and store a reference to it
-        // This means that we don't need to call GetComponent more than once! This makes our game faster. (GetComponent is SLOW)
-        OURRigidbody = GetComponent<Rigidbody2D>(); }
-    // Update is called once per frame
-    void Update() {
-        float HorizontalInput = Input.GetAxis("Horizontal");
+    void Update()
+    {
+        // Get input from the player (left or right arrow keys)
+        float horizontalInput = Input.GetAxis("Horizontal");
 
-        if (HorizontalInput != 0.0f) {
-            Vector2 ForceToAdd=Vector2.right*HorizontalInput*f_horPlayAccel*Time.deltaTime;
-            OURRigidbody.AddForce(ForceToAdd);
-            //print(HorizontalInput);
-        } } }
+        if (horizontalInput != 0.0f)
+        {
+            // Calculate the force to apply based on input and acceleration
+            Vector2 forceToAdd = Vector2.right * horizontalInput * horizontalPlayerAcceleration * Time.deltaTime;
+            ourRigidbody.AddForce(forceToAdd);
+
+            // Uncomment the line below for debugging purposes
+            // print(horizontalInput);
+        }
+    }
+}
