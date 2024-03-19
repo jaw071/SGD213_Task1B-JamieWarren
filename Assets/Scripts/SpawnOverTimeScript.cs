@@ -1,37 +1,31 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SpawnOverTimeScript : MonoBehaviour
 {
-
-    // Object to spawn
     [SerializeField]
-    private GameObject spawnObject;
+    private GameObject spawnObject; // Object to spawn
 
-    // Delay between spawns
     [SerializeField]
-    private float spawnDelay = 2f;
+    private float spawnDelay = 2f; // Delay between spawns (in seconds)
 
-    private Renderer ourRenderer;
+    private Renderer renderer;
 
-    // Use this for initialization
     void Start()
     {
+        renderer = GetComponent<Renderer>();
 
-        ourRenderer = GetComponent<Renderer>();
+        // Hide the spawner initially
+        renderer.enabled = false;
 
-        // Stop our Spawner from being visible!
-        ourRenderer.enabled = false;
-
-        // Call the given function after spawnDelay seconds, 
-        // and then repeatedly call it after spawnDelay seconds.
+        // Call the Spawn function after spawnDelay seconds, and repeat every spawnDelay seconds
         InvokeRepeating("Spawn", spawnDelay, spawnDelay);
     }
 
     void Spawn()
     {
-        float x1 = transform.position.x - ourRenderer.bounds.size.x / 2;
-        float x2 = transform.position.x + ourRenderer.bounds.size.x / 2;
+        // Calculate the x-coordinate range for spawning
+        float x1 = transform.position.x - renderer.bounds.size.x / 2;
+        float x2 = transform.position.x + renderer.bounds.size.x / 2;
 
         // Randomly pick a point within the spawn object
         Vector2 spawnPoint = new Vector2(Random.Range(x1, x2), transform.position.y);
