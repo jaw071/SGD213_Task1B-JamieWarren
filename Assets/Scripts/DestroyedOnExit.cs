@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class DestroyedOnExit : MonoBehaviour
 {
-
-    // Called when the object leaves the viewport
+    // Function that is called when the game object is no longer visible
     void OnBecameInvisible()
     {
+        // Destroy the game object when it leaves the viewport
         Destroy(gameObject);
     }
 }
