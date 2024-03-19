@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SpawnOverTimeScript : MonoBehaviour
+public class SpawnOverTime : MonoBehaviour
 {
     [SerializeField]
     private GameObject spawnObject; // Object to spawn

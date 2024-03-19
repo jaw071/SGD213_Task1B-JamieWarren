@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ShootingScript : MonoBehaviour
+public class Shooting : MonoBehaviour
 {
     [SerializeField]
     private GameObject bullet; // Reference to the bullet prefab

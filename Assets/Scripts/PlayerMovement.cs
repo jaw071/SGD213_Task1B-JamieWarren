@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerMovementScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     // Exposes this value to the Editor, but not to other Scripts (pseudo public)
     [SerializeField] private float horizontalPlayerAcceleration = 5000f;
