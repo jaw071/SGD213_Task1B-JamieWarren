@@ -3,7 +3,7 @@
 public class PlayerMovement : MonoBehaviour
 {
     // Exposes this value to the Editor, but not to other Scripts (pseudo public)
-    [SerializeField] private float horizontalPlayerAcceleration = 5000f;
+    public float horizontalPlayerAcceleration = 5000f;
     private Rigidbody2D ourRigidbody;
 
     void Start()
@@ -13,19 +13,10 @@ public class PlayerMovement : MonoBehaviour
         ourRigidbody = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    public void HorizontalMovement(float horizontalInput)
     {
-        // Get input from the player (left or right arrow keys)
-        float horizontalInput = Input.GetAxis("Horizontal");
-
-        if (horizontalInput != 0.0f)
-        {
-            // Calculate the force to apply based on input and acceleration
-            Vector2 forceToAdd = Vector2.right * horizontalInput * horizontalPlayerAcceleration * Time.deltaTime;
-            ourRigidbody.AddForce(forceToAdd);
-
-            // Uncomment the line below for debugging purposes
-            // print(horizontalInput);
-        }
+        // Calculate the force to apply based on input and acceleration
+        Vector2 forceToAdd = Vector2.right * horizontalInput * horizontalPlayerAcceleration * Time.deltaTime;
+        ourRigidbody.AddForce(forceToAdd);
     }
 }
